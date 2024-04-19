@@ -25,11 +25,12 @@ class QnA{
         }
     }
 
-    public function insertQnA(){
+    public function insertQnA()
+    {
         try {
             // Načítanie JSON súboru
             $data = json_decode(file_get_contents
-            (__ROOT__.'/data/datas.json'), true);
+            (__ROOT__ . '/data/datas.json'), true);
             $otazky = $data["otazky"];
             $odpovede = $data["odpovede"];
 
@@ -53,6 +54,16 @@ class QnA{
         } finally {
             // Uzatvorenie spojenia
             $this->conn = null;
+        }
+    }
+    public function checkDuplicateQuestionAndAnswer($otazky, $odpovede) {
+        $query = "SELECT * FROM qna WHERE otazka = '$otazky' AND odpoved = '$odpovede'";
+        $result = $this->conn->query($query);
+
+        if ($result->rowCount() > 0) {
+            return false; // Otázka a odpoveď už existuje v databáze
+        } else {
+            return true; // Otázka a odpoveď je unikátna
         }
     }
 }
