@@ -1,7 +1,7 @@
 <?php
 define('__ROOT__', dirname(dirname(__FILE__)));
 require_once('db/config.php');
-class QnA{
+class QnA{      //a basic database class
     private $conn;
     public function __construct() {
         $this->connect();
@@ -18,7 +18,7 @@ class QnA{
         }
     }
 
-    public function insertQnA(){
+    public function insertQnA(){            //function allows entering data into the database
         try {
             // Načítanie JSON súboru
             $data = json_decode(file_get_contents('data/datas.json'), true);
@@ -55,7 +55,7 @@ class QnA{
         }
     }
 
-    public function getQnA() {
+    public function getQnA() {      //retrieving questions and answers from the database
         try {
             $sql = "SELECT DISTINCT otazka, odpoved FROM qna";
             $statement = $this->conn->query($sql);

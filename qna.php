@@ -18,7 +18,7 @@ include_once "parts/nav.php";
               </div>
           </div>
 
-          <?php
+          <?php         //interaction with QnA.php
            include_once "classes/QnA.php";
            use QnA;
 
