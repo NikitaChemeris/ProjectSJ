@@ -91,15 +91,22 @@ class QnA
             throw new Exception("Error deleting Q&A pair: " . $e->getMessage());
         }
     }
-    
-    public function updateQnA()
+
+    public function updateQnA($question, $newAnswer)
     {
         try {
-
-        } catch {
-
+            $sql = "UPDATE qna SET odpoved = :newAnswer WHERE otazka = :otazka";
+            $statement = $this->conn->prepare($sql);
+            $statement->bindParam(':otazka', $question);
+            $statement->bindParam(':newAnswer', $newAnswer);
+            $statement->execute();
+            echo "Q&A pair updated successfully.";
+        } catch (PDOException $e) {
+            throw new Exception("Error updating Q&A pair: " . $e->getMessage());
         }
     }
+
 }
+
 
 ?>
